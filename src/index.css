@@ -28,7 +28,9 @@ input {
 }
 
 .login__container {
-  background-color: #f0f2f5c7;
+  /* background-color: #f0f2f5c7; */
+  /* background-color: #c1bfbf; */
+  background-color: #9ba0b0;
   display: grid;
   grid-template-columns: 55% 45%;
   height: 100vh;
@@ -104,7 +106,7 @@ input {
 
 .login__forgot-password {
   border-bottom: 1px solid #E5E7EB;
-  color: #2563EB;
+  /* color: #2563EB; */
   display: block;
   font-size: 0.9375rem;
   padding: 1.25rem 0;
@@ -116,7 +118,7 @@ input {
 }
 
 .login__signup {
-  color: #2563EB;
+  /* color: #2563EB; */
   display: block;
   font-size: 0.9375rem;
   padding: 1.25rem 0;
@@ -243,10 +245,11 @@ input {
 
 /* Modal Content/Box */
 .signup__content {
-  background-color: #fefefe;
+  /* background-color: #fefefe; */
+  background-color: #9ba0b0;
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
   margin: 15% auto; /* 15% from the top and centered */
-  margin-top: 10%;
+  margin-top: 3%;
   width: 27rem; /* Could be more or less, depending on screen size */
   border-radius: 2rem;
   background-color: rgba(255,255,255,0.13);
@@ -323,8 +326,12 @@ input {
   outline: none;
   padding: 0.875rem 1rem;
   border-radius: 2rem;
+  width: inherit;
 }
 
+.closebtn{
+  height: 2rem;
+}
 .signup__btn:hover {
   cursor: pointer;
   opacity: 0.8;
@@ -389,7 +396,7 @@ opacity:0.8;
   background-color: rgb(255, 255, 255);
   box-shadow: rgb(0 0 0 / 15%) 0px 4px 16px;
   height: 32.0625rem;
-  left: 3%;
+  left: 4%;
   position: fixed;
   top: 13%;
   width: 25rem;
@@ -747,7 +754,7 @@ opacity:0.8;
   background-color: rgb(255, 255, 255);
   box-shadow: rgb(0 0 0 / 15%) 0px 4px 16px;
   height: 32.0625rem;
-  left: 3%;
+  left: 4%;
   position: fixed;
   top: 13%;
   width: 25rem;
@@ -838,7 +845,7 @@ opacity:0.8;
   background-color: rgb(255, 255, 255);
   box-shadow: rgb(0 0 0 / 15%) 0px 4px 16px;
   height: 32.0625rem;
-  left: 3%;
+  left: 4%;
   position: fixed;
   top: 13%;
   width: 25rem;
@@ -918,4 +925,39 @@ opacity:0.8;
   padding: 0.5rem;
   margin-top: 0.3rem;
   font-size: 18px;
+}
+
+@media only screen and (max-width: 600px) {
+
+  .login__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .login__welcome {
+    padding-top: 5rem;
+    padding-left: unset;
+} 
+
+.login__form-container {
+
+  margin-left: auto;
+  margin-right: auto;
+  width: unset;
+}
+
+.signup__content {
+  margin-top: 10%;
+  width: 22rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.ride-list {
+  top: 16%;
+  margin-right: auto;
+  margin-left: auto;
+  width: 23rem;
+  left: 5%;
+}
 }

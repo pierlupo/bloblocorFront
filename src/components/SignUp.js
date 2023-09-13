@@ -11,6 +11,7 @@ import { set, ref } from 'firebase/database'
 // import uuid to generate id for users.
 import { v4 as uuidv4 } from "uuid";
 import { registerAPICall } from "../services/AuthService";
+import closeButton from '../close-button.png';
 
 function SignUp(props) {
   // get toggleModal functin from higher order components.
@@ -139,11 +140,11 @@ function SignUp(props) {
 
     const register = {username, password, firstname, lastname, phone, email, isAdmin, isDriver}
 
-    if(isDriver.current.value == driverRole){
-      isDriver = true;
-    } else {
-      isDriver = false;
-    }
+    // if(isDriver.current.value == driverRole){
+    //   isDriver = true;
+    // } else {
+    //   isDriver = false;
+    // }
 
     //isDriver.current.value == driverRole ? isDriver = true : false;
 
@@ -268,10 +269,10 @@ function SignUp(props) {
         <div className="signup__container">
           <div className="signup__title">Sign Up</div>
           <div className="signup__close">
-            <img
+            <img className="closebtn"
               alt="close"
               onClick={() => toggleModal(false)}
-              src="https://static.xx.fbcdn.net/rsrc.php/v3/y2/r/__geKiQnSG-.png"
+              src={closeButton}
             />
           </div>
         </div>

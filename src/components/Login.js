@@ -1,6 +1,7 @@
 // import useRef and useContext
 // import 'firebase/database'
-import { useRef, useContext } from "react";
+import React,  { useRef, useContext, useState } from "react";
+// import Parse from 'parse/dist/parse.min.js';
 // import Context to get shared data from React context.
 import Context from "../Context";
 // import firebase authentication and real time database.
@@ -35,6 +36,11 @@ import { loginAPICall, saveLoggedInUser, storeToken } from '../services/AuthServ
 
 
 function Login(props) {
+
+  // const [username, setUsername] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [currentUser, setCurrentUser] = useState(null);
+  
   // get shared data from context.
   const { setUser, setIsLoading, cometChat } = useContext(Context);
   // get toggle modal function from withModal - higher order component.
@@ -103,6 +109,7 @@ function Login(props) {
             console.error(error);
             console.log("error");
         })
+
 
       // }
         //if (isUserCredentialsValid(email, password)) {
