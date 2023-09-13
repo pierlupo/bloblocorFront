@@ -6,12 +6,12 @@ import Context from "../Context";
 import validator from "validator";
 // import firebase authentication.
 import { auth, realTimeDb } from "../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth"
-import { set, ref } from 'firebase/database'
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { set, ref } from "firebase/database";
 // import uuid to generate id for users.
 import { v4 as uuidv4 } from "uuid";
 import { registerAPICall } from "../services/AuthService";
-import closeButton from '../close-button.png';
+import closeButton from "../close-button.png";
 
 function SignUp(props) {
   // get toggleModal functin from higher order components.
@@ -31,30 +31,30 @@ function SignUp(props) {
 
   const { cometChat, setIsLoading } = useContext(Context);
 
-  const driverRole = 'driver';
-  const userRole = 'user';
+  const driverRole = "driver";
+  const userRole = "user";
 
   /**
    * generate random avatar for demo purpose
-   * @returns 
+   * @returns
    */
   const generateAvatar = () => {
     // hardcode list of user's avatars for the demo purpose.
-    const avatars= [
-      'https://data-us.cometchat.io/assets/images/avatars/captainamerica.png',
-      'https://data-us.cometchat.io/assets/images/avatars/cyclops.png',
-      'https://data-us.cometchat.io/assets/images/avatars/ironman.png',
-      'https://data-us.cometchat.io/assets/images/avatars/spiderman.png',
-      'https://data-us.cometchat.io/assets/images/avatars/wolverine.png'
+    const avatars = [
+      "https://data-us.cometchat.io/assets/images/avatars/captainamerica.png",
+      "https://data-us.cometchat.io/assets/images/avatars/cyclops.png",
+      "https://data-us.cometchat.io/assets/images/avatars/ironman.png",
+      "https://data-us.cometchat.io/assets/images/avatars/spiderman.png",
+      "https://data-us.cometchat.io/assets/images/avatars/wolverine.png",
     ];
     const avatarPosition = Math.floor(Math.random() * avatars.length);
     return avatars[avatarPosition];
-  }
+  };
 
   /**
    * validate user's informatin.
-   * @param {*} param0 
-   * @returns 
+   * @param {*} param0
+   * @returns
    */
   // const isSignupValid = ({ email, phone, role, password, confirmPassword }) => {
   //   if (!validator.isEmail(email)) {
@@ -84,7 +84,17 @@ function SignUp(props) {
   //   return true;
   // };
 
-  const isSignupValid = ({ email, username, firstname, lastname, phone, isAdmin, isDriver, password, confirmPassword }) => {
+  const isSignupValid = ({
+    email,
+    username,
+    firstname,
+    lastname,
+    phone,
+    isAdmin,
+    isDriver,
+    password,
+    confirmPassword,
+  }) => {
     if (!validator.isEmail(email)) {
       alert("Please put your email");
       return false;
@@ -101,12 +111,17 @@ function SignUp(props) {
     //   alert("Please put your email");
     //   return false;
     // }
-    if (!validator.isMobilePhone(phone, ['en-US', 'fr-FR'])) {
+    if (!validator.isMobilePhone(phone, ["en-US", "fr-FR"])) {
       alert("Please put your phone number");
       return false;
     }
-    if (validator.isEmpty(password) || !validator.isLength(password, {min: 6})) {
-      alert("Please put your password. You password must have at least 6 characters");
+    if (
+      validator.isEmpty(password) ||
+      !validator.isLength(password, { min: 6 })
+    ) {
+      alert(
+        "Please put your password. You password must have at least 6 characters"
+      );
       return false;
     }
     if (validator.isEmpty(confirmPassword)) {
@@ -136,9 +151,17 @@ function SignUp(props) {
 
     const password = passwordRef.current.value;
     const confirmPassword = confirmPasswordRef.current.value;
-    
 
-    const register = {username, password, firstname, lastname, phone, email, isAdmin, isDriver}
+    const register = {
+      username,
+      password,
+      firstname,
+      lastname,
+      phone,
+      email,
+      isAdmin,
+      isDriver,
+    };
 
     // if(isDriver.current.value == driverRole){
     //   isDriver = true;
@@ -148,77 +171,85 @@ function SignUp(props) {
 
     //isDriver.current.value == driverRole ? isDriver = true : false;
 
-      console.log(register);
-      // if (isSignupValid({ username, password, firstname, lastname, phone, email, isDriver })) {
-        
-        setIsLoading(true);
-          const userUuid = uuidv4();
-          const userAvatar = generateAvatar();
+    console.log(register);
+    // if (isSignupValid({ username, password, firstname, lastname, phone, email, isDriver })) {
 
-        registerAPICall(register).then((response) => {
-          console.log(userUuid + userAvatar)
-          console.log("test")
-          const authKey = "acbd9af1d08f7723c91675770d8d4598f9314c04";  
-          const user = new cometChat.User(userUuid);
-          user.setName(email);
-          user.setAvatar(userAvatar);
+    setIsLoading(true);
+    const userUuid = uuidv4();
+    const userAvatar = generateAvatar();
 
-          cometChat.createUser(user, authKey).then(
-           user => {
-             setIsLoading(false);
-           },error => {
-             setIsLoading(false);
-           }
-         )
-         toggleModal(false);
-      }).catch(error => {
-        console.log(error);
-               setIsLoading(false);
-               alert(`Cannot create your account, ${register.email} might exist, please try again!`);
-      }).then(() => {
-        alert(`${register.email} was created successfully! Please sign in with your created account`);
+    registerAPICall(register)
+      .then((response) => {
+        console.log(userUuid + userAvatar);
+        console.log("test");
+        const authKey = "acbd9af1d08f7723c91675770d8d4598f9314c04";
+        const user = new cometChat.User(userUuid);
+        user.setName(email);
+        user.setAvatar(userAvatar);
+
+        cometChat.createUser(user, authKey).then(
+          (user) => {
+            setIsLoading(false);
+          },
+          (error) => {
+            setIsLoading(false);
+          }
+        );
+        toggleModal(false);
       })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+        alert(
+          `Cannot create your account, ${register.email} might exist, please try again!`
+        );
+      })
+      .then(() => {
+        alert(
+          `${register.email} was created successfully! Please sign in with your created account`
+        );
+      });
     //}
   };
-    //  if (isSignupValid({ username, password, firstname,lastname,phone, email, isAdmin, isDriver })) {
-      // show loading 
+  //  if (isSignupValid({ username, password, firstname,lastname,phone, email, isAdmin, isDriver })) {
+  // show loading
 
-       //setIsLoading(true);
-      // create new user's uuid.
-      //const userUuid = uuidv4(); 
-      // generate user's avatar.
+  //setIsLoading(true);
+  // create new user's uuid.
+  //const userUuid = uuidv4();
+  // generate user's avatar.
 
-       //const userAvatar = generateAvatar();
-      
-      // call firebase to to register a new account.
-      // createUserWithEmailAndPassword(auth, email, password).then((auth) => {
-      //    if (auth) {
-      //     // call firebase real time database to insert a new user.
-          
-      //     set(ref(realTimeDb,`users/${userUuid}`),{
-      //        id: userUuid,
-      //        email,
-      //        phone,
-      //        role,
-      //        avatar: userAvatar
-      //      }).then(() => {
-      //        alert(`${auth.user.email} was created successfully! Please sign in with your created account`);
-            // cometchat auth key
-            //  const authKey = `${process.env.REACT_APP_COMETCHAT_AUTH_KEY}`; 
-           //  const authKey = "acbd9af1d08f7723c91675770d8d4598f9314c04";   
-            // call cometchat service to register a new account.
-            //  const user = new cometChat.User(userUuid);
-            //  user.setName(email);
-            //  user.setAvatar(userAvatar);
+  //const userAvatar = generateAvatar();
 
-            //  cometChat.createUser(user, authKey).then(
-            //   user => {
-            //     setIsLoading(false);
-            //   },error => {
-            //     setIsLoading(false);
-            //   }
-            // )
-            // close sign up dialog.
+  // call firebase to to register a new account.
+  // createUserWithEmailAndPassword(auth, email, password).then((auth) => {
+  //    if (auth) {
+  //     // call firebase real time database to insert a new user.
+
+  //     set(ref(realTimeDb,`users/${userUuid}`),{
+  //        id: userUuid,
+  //        email,
+  //        phone,
+  //        role,
+  //        avatar: userAvatar
+  //      }).then(() => {
+  //        alert(`${auth.user.email} was created successfully! Please sign in with your created account`);
+  // cometchat auth key
+  //  const authKey = `${process.env.REACT_APP_COMETCHAT_AUTH_KEY}`;
+  //  const authKey = "acbd9af1d08f7723c91675770d8d4598f9314c04";
+  // call cometchat service to register a new account.
+  //  const user = new cometChat.User(userUuid);
+  //  user.setName(email);
+  //  user.setAvatar(userAvatar);
+
+  //  cometChat.createUser(user, authKey).then(
+  //   user => {
+  //     setIsLoading(false);
+  //   },error => {
+  //     setIsLoading(false);
+  //   }
+  // )
+  // close sign up dialog.
   //           toggleModal(false);
   //         });
   //       }
@@ -226,10 +257,10 @@ function SignUp(props) {
   //       console.log(error);
   //       setIsLoading(false);
   //       alert(`Cannot create your account, ${email} might exist, please try again!`);
-  //     }); 
+  //     });
   //   }
   // };
-  
+
   return (
     // <div className="signup">
     //   <div className="signup__content">
@@ -263,13 +294,14 @@ function SignUp(props) {
     //     </div>
     //   </div>
     // </div>
-   // username, password, firstname, lastname, phone, email, isAdmin, isDriver
-        <div className="signup">
+    // username, password, firstname, lastname, phone, email, isAdmin, isDriver
+    <div className="signup">
       <div className="signup__content">
         <div className="signup__container">
           <div className="signup__title">Sign Up</div>
           <div className="signup__close">
-            <img className="closebtn"
+            <img
+              className="closebtn"
               alt="close"
               onClick={() => toggleModal(false)}
               src={closeButton}
