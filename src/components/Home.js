@@ -21,7 +21,7 @@ const style = {
 
 function Home() {
 
-  const { selectedFrom, selectedTo, user, currentRide } = useContext(Context);
+  const { selectedFrom, selectedTo, user, setUser, currentRide } = useContext(Context);
 
   const map = useRef();
 
@@ -31,7 +31,8 @@ function Home() {
     initMap();
     initRouteControl();
   }, []);
-
+  setUser(user)
+  console.log(user);
   const drawRoute = useCallback((from, to) => {
     if (shouldRouteDrawed(from, to) && routeControl && routeControl.current) {
       const fromLatLng = new L.LatLng(from.y, from.x);
@@ -116,7 +117,7 @@ function Home() {
 
   const renderSidebar = () => {
     //const isUser = user && user.role === 'user';
-    const isUser = user && user.role === 'driver';
+    const isUser = user && user.driver === false;
     if (isUser && !currentRide) {
       return <AddressPicker />
     } 

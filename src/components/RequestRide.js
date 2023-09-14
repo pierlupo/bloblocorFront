@@ -5,9 +5,11 @@ import { realTimeDb } from "../firebase";
 // import uuid to generate id for users.
 import { v4 as uuidv4 } from "uuid";
 // import Context
+import closeButton from "../close-button.png";
 import Context from '../Context';
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/database';
+import { saveResa } from '../services/ResService';
 
 
 let FirebaseConfig = {
@@ -32,29 +34,38 @@ function RequestRide(props) {
   /**
    * request a ride
    */
-  const requestRide = () => {
+  async function requestRide() {
     if (user && selectedFrom && selectedTo) {
       // close the modal.
       toggleModal(false);
       // show loading indicator. 
       setIsLoading(true);
       // create object.
-      const rideUuid = uuidv4();
+      //const rideUuid = uuidv4();
       const ride = {
-        "rideUuid": rideUuid,
-        "requestor": user,
-        "pickup": selectedFrom,
-        "destination": selectedTo,
-        "status": 0
+        //"rideUuid": rideUuid,
+        "departure": selectedFrom,
+        "arrival": selectedTo,
+        "date": "2023-15-09",
+        "price": 50, 
+        "driverId" : 1,
+        "clientId": 1,
+        "isEnded": false
       }
       // insert to Firebase realtime database.
        //realTimeDb.refFromURL(`rides/${rideUuid}`).set(ride).then(() => {
-        firebase.database().ref(`rides/${rideUuid}`).set(ride).then(() => {
-         setRideRequest(ride);
-         setIsLoading(false);
-       }).catch(() => {
-         setIsLoading(false);
-       });
+      //   firebase.database().ref(`rides/${rideUuid}`).set(ride).then(() => {
+      //    setRideRequest(ride);
+      //    setIsLoading(false);
+      //  }).catch(() => {
+      //    setIsLoading(false);
+      //  });
+
+      await saveResa(ride).then((response) => {
+        console.log(response);
+        setRideRequest(ride);
+        setIsLoading(false);
+      })
      }
    };
   
@@ -67,10 +78,10 @@ function RequestRide(props) {
             Offering a ride
             </div>
           <div className="request-ride__close">
-            <img
+            <img className="closebtn"
               alt="close"
               onClick={() => toggleModal(false)}
-              src="https://static.xx.fbcdn.net/rsrc.php/v3/y2/r/__geKiQnSG-.png"
+              src={closeButton}
             />
           </div>
         </div>

@@ -53,6 +53,8 @@ function App() {
   const [currentRide, setCurrentRide] = useState(null);
   // rides.
   const [rides, setRides] = useState(null);
+  const [date, setDate] = useState(null);
+  const [price, setPrice] = useState(null);
   
 
 
@@ -159,17 +161,17 @@ function App() {
   }
 
   return (
-    <Context.Provider value={{isLoading, setIsLoading, user, setUser, cometChat, selectedFrom, setSelectedFrom, selectedTo, setSelectedTo, rideRequest, setRideRequest, currentRide, setCurrentRide, rides, setRides}}>
+    <Context.Provider value={{isLoading, setIsLoading, user, setUser, cometChat, selectedFrom, setSelectedFrom, selectedTo, setSelectedTo, rideRequest, setRideRequest, currentRide, setCurrentRide, rides, setRides, price, setPrice, date, setDate}}>
       <Router>
         <Routes >
           {/* Home Route */}
-          <Route exact path="/" element = { <Home /> }></Route>
+          <Route exact path="/home" element = { <Home /> }></Route>
           <Route exact path="/chat" element = { <Chat /> }></Route>
           <Route exact path="/profile" element = { <UserProfile /> }></Route>
           {/* <PrivateRoute exact path="/chat" element={ <Chat/> } /> */}
           {/* End Home Route */}
           {/* Login Route */}
-          <Route exact path="/login" element = { <Login />}></Route>
+          <Route exact path="/" element = { <Login />}></Route>
           {/* End Login Route */}
         </Routes >
       </Router>

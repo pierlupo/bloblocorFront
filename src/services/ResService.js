@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken } from "./AuthService";
 
-const BASE_REST_API_URL =  import.meta.env.VITE_HOST_API_ADDRESS+'/reservation';
+const BASE_REST_API_URL =  "localhost:8083/api/reservation";
 
 
 axios.interceptors.request.use(function (config) {

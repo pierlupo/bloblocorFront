@@ -12,11 +12,12 @@ function AddressPicker(props) {
   const [isFrom, setIsFrom] = useState(true);
   const [searchResults, setSearchResults] = useState([]);
 
-  const { selectedFrom, setSelectedFrom, selectedTo, setSelectedTo } = useContext(Context);
+  const { selectedFrom, setSelectedFrom, selectedTo, setSelectedTo, date, setDate, price, setPrice } = useContext(Context);
 
   const provider = useRef();
   const searchRef = useRef();
-
+  const dateRef = useRef();
+  const priceRef = useRef();
   const { toggleModal } = props;
 
   useEffect(() => {
@@ -46,6 +47,10 @@ function AddressPicker(props) {
       setSearchResults(() => results);
     });
   };
+ 
+    // setDate(dateRef.current.value);
+    // setPrice(priceRef.current.value);
+  
 
   /**
    * init provider
@@ -87,6 +92,8 @@ function AddressPicker(props) {
         <div className="address__title-container">
           <p className="address__title-from" onClick={() => setIsFrom(true)}>{selectedFrom && selectedFrom.label ? selectedFrom.label : 'Pickup location ?'}</p>
           <p className="address__title-to" onClick={() => setIsFrom(false)}>{selectedTo && selectedTo.label ? selectedTo.label : 'Destination ?'}</p>
+          {/* <p className="address__title-to" >Date: </p>
+          <p className="address__title-to" >Prix: </p> */}
         </div>
       </div>
       <div className="search">
@@ -109,8 +116,23 @@ function AddressPicker(props) {
             ))
           }
         </div>
-      </div>
+        <input
+          className="search__input"
+          type="text"
+          placeholder="Date"
+          // onChange={onInputChanged}
+          ref={dateRef}
+        />
+              <input
+          className="search__input"
+          type="text"
+          placeholder="Price"
+          // onChange={onInputChanged}
+          ref={priceRef}
+        />
     </div>
+      </div>
+      
   );
 }
 
