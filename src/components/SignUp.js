@@ -28,8 +28,11 @@ function SignUp(props) {
 
   const { cometChat, setIsLoading } = useContext(Context);
 
+  
+
   let driverRole = "driver" ? true : false;
-  let userRole = "user" ? true : false;
+  let userRole = "user" 
+  // let userRole = "user" ? true : false;
 
   /**
    * generate random avatar for demo purpose
@@ -53,6 +56,9 @@ function SignUp(props) {
 // https://www.woopets.fr/assets/races/000/380/bannerbig2021/siamois_2.jpg
 // https://www.woopets.fr/assets/races/000/369/bannerbig2021/norvegien_2.jpg
 // https://www.woopets.fr/assets/races/000/385/bannerbig2021/somali_2.jpg
+// https://www.woopets.fr/assets/races/000/346/bannerbig2021/bleu-russe_2.jpg
+// https://www.woopets.fr/assets/races/000/345/bannerbig2021/bengal_2.jpg
+// https://www.woopets.fr/assets/races/000/338/bannerbig2021/abyssin_2.jpg
   /**
    * validate user's informatin.
    * @param {*} param0
@@ -106,12 +112,13 @@ function SignUp(props) {
     console.log(driverRoleRef.current.value);
     // const isDriver = driverRoleRef.current.value;
     let isDriver = 0;
-    if(driverRoleRef.current.value == "true") {
+    if(driverRoleRef.current.value === "true") {
       isDriver = 1;
     }else{
       isDriver = 0;
+      userRole = "user";
     }
-
+    const role = driverRoleRef.current.value;
     console.log(isDriver);
     const avatar = avatarRef.current.value;
 
@@ -141,7 +148,7 @@ function SignUp(props) {
       .then((response) => {
         // console.log(userUuid + userAvatar);
         console.log("test");
-        const authKey = "acbd9af1d08f7723c91675770d8d4598f9314c04";
+        const authKey = "*********************";
         const user = new cometChat.User(userUuid);
         user.setName(email);
         // user.setAvatar(userAvatar);

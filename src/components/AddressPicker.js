@@ -116,7 +116,7 @@ function AddressPicker(props) {
             ))
           }
         </div>
-        <input
+        {/* <input
           className="search__input"
           type="text"
           placeholder="Date"
@@ -129,7 +129,7 @@ function AddressPicker(props) {
           placeholder="Price"
           // onChange={onInputChanged}
           ref={priceRef}
-        />
+        /> */}
     </div>
       </div>
       

@@ -117,7 +117,7 @@ function Home() {
 
   const renderSidebar = () => {
     //const isUser = user && user.role === 'user';
-    const isUser = user && user.driver === false;
+    const isUser = user && user.driver === true;
     if (isUser && !currentRide) {
       return <AddressPicker />
     } 
