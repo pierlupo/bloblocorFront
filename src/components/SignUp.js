@@ -148,7 +148,7 @@ function SignUp(props) {
       .then((response) => {
         // console.log(userUuid + userAvatar);
         console.log("test");
-        const authKey = "*********************";
+        const authKey = "acbd9af1d08f7723c91675770d8d4598f9314c04";
         const user = new cometChat.User(userUuid);
         user.setName(email);
         // user.setAvatar(userAvatar);
